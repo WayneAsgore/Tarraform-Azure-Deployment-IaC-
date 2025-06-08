@@ -1,5 +1,5 @@
-pipeline
-    agent "docker-alpine-jdk21"
+pipeline {
+    agent {label "docker-alpine-jdk21"
 
     stages {
         stage('Syntax check') {
@@ -16,7 +16,9 @@ pipeline
             input message "Are you sure you want to deploy the infrastructure?"
         }
 
-        stage("Deployment")
+        stage("Deployment") {
             echo "Deploying your infrastructure..."
             sh "terraform apply -auto-approve"  
-    } 
+    }   } 
+} 
+}     
