@@ -1,0 +1,20 @@
+pipeline
+    agent "docker-alpine-jdk21"
+
+    triggers { none }
+
+    stages {
+        stage('Syntax check') {
+            echo "Checking syntax"
+            sh "terraform init"
+        }
+        
+        stage('Syntax validation') {
+            echo "Validating Syntax"
+            sh "terraform validate"
+        }
+
+        stage('Approval') {
+            input message "Are you sure you want to deploy the infrastructure?"
+        }  
+    } 
