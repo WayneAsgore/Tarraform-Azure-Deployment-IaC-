@@ -1,24 +1,32 @@
 pipeline {
-    agent {label "docker-alpine-jdk21"
+    agent { label "docker-alpine-jdk21" }
 
     stages {
         stage('Syntax check') {
-            echo "Checking syntax"
-            sh "terraform init"
+            steps {
+                echo "Checking syntax"
+                sh "terraform init"
+            }
         }
         
         stage('Syntax validation') {
-            echo "Validating Syntax"
-            sh "terraform validate"
+            steps {  
+                echo "Validating Syntax"
+                sh "terraform validate"
+            }    
         }
 
         stage('Approval') {
-            input message "Are you sure you want to deploy the infrastructure?"
+            steps {
+            input message: "Are you sure you want to deploy the infrastructure?"
+            }
         }
 
         stage("Deployment") {
+            steps {
+
             echo "Deploying your infrastructure..."
-            sh "terraform apply -auto-approve"  
+            sh "terraform apply -auto-approve"
+            }
     }   } 
-} 
-}     
+}    
