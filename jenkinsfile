@@ -2,6 +2,32 @@ pipeline {
     agent { label "docker-alpine-jdk21" }
 
     stages {
+
+        stage('Install Terraform if missing') {
+            steps {
+                sh '''
+                    #!/bin/sh
+
+                    set -e
+
+                    if ! command -v terraform >/dev/null 2>&1; then
+                      echo "Terraform not found. Installing..."
+                      apk add --no-cache curl unzip
+
+                      TERRAFORM_VERSION="1.12.1"
+                      curl -fsSL "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -o terraform.zip
+                      unzip terraform.zip
+                      mv terraform /usr/local/bin/
+                      chmod +x /usr/local/bin/terraform
+                      terraform -version
+                    else
+                      echo "Terraform is already installed:"
+                      terraform -version
+                    fi
+                '''
+            }
+        }
+
         stage('Syntax check') {
             steps {
                 echo "Checking syntax"
