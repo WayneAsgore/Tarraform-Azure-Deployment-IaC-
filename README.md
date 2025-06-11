@@ -1,8 +1,3 @@
-# Terraform-Azure-Deployment-IaC-
-My Azure IaC Deployment File
-
-# Terraform-Azure-Deployment-IaC-
-
 This project demonstrates my approach to deploying cloud infrastructure using Infrastructure as Code (IaC) with Terraform on Azure. My primary goal is to follow best practices for infrastructure provisioning, security, and maintainability
 
 Currently, the project includes:
