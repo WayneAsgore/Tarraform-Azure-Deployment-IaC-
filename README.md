@@ -1,2 +1,2 @@
-# Tarraform-Azure-Deployment-IaC-
+# Terraform-Azure-Deployment-IaC-
 My Azure IaC Deployment File
